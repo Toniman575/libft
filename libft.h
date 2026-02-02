@@ -6,14 +6,15 @@
 /*   By: asadik <asadik@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 12:55:23 by asadik            #+#    #+#             */
-/*   Updated: 2026/01/05 10:18:16 by asadik           ###   ########.fr       */
+/*   Updated: 2026/02/02 12:49:57 by asadik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stdio.h>
-
+# include "get_next_line/get_next_line.h"
+# include "ft_printf/ft_printf.h"
 typedef struct s_list
 {
 	void			*content;
