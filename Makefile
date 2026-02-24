@@ -1,10 +1,13 @@
-NAME = 	libft.a
+NAME = libft.a
 
 PRINTF_DIR = ft_printf
 PRINTF = $(LIBFT_DIR)/libftprintf.a
 
 GNL_DIR = get_next_line
 GNL = $(GNL_DIR)/gnl.a
+
+PRINTF_OBJS := $(shell $(MAKE) -C $(PRINTF_DIR) print_objs --no-print-directory)
+GNL_OBJS    := $(shell $(MAKE) -C $(GNL_DIR) print_objs --no-print-directory)
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -MMD -MP
@@ -17,22 +20,16 @@ SRCS =	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_bzero.c ft_isascii.c ft_isprint
 		ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c \
 		ft_lstclear.c ft_lstiter.c ft_lstmap.c
 OBJS = 	$(SRCS:.c=.o)
-DEPS = $(OBJS:.o=.d)
+ALL_OBJS = $(OBJS) $(PRINTF_OBJS) $(GNL_OBJS)
+DEPS = $(ALL_OBJS:.o=.d)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(PRINTF) $(GNL)
-	ar rcs $(NAME) $(OBJS)
-	cd $(PRINTF_DIR) && ar x libftprintf.a
-	ar rcs $(NAME) $(PRINTF_DIR)/*.o
-	cd $(GNL_DIR) && ar x gnl.a
-	ar rcs $(NAME) $(GNL_DIR)/*.o
+$(NAME): $(ALL_OBJS)
+	ar rcs $(NAME) $(ALL_OBJS)
 
-$(PRINTF):
-	$(MAKE) -C $(PRINTF_DIR) CFLAGS="$(CFLAGS)"
-
-$(GNL):
-	$(MAKE) -C $(GNL_DIR) CFLAGS="$(CFLAGS)"
+$(PRINTF_OBJS) $(GNL_OBJS):
+	$(MAKE) -C $(@D)
 
 clean:
 	rm -f $(OBJS) $(DEPS)
