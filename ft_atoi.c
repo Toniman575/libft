@@ -6,7 +6,7 @@
 /*   By: asadik <asadik@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 14:27:03 by asadik            #+#    #+#             */
-/*   Updated: 2025/10/12 13:49:07 by asadik           ###   ########.fr       */
+/*   Updated: 2026/02/27 20:37:37 by asadik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_atoi(const char *nptr)
 
 	number = 0;
 	negative = 0;
-	while (*nptr == ' ' || (*nptr >= 9 && *nptr <= 13))
+	while ((*nptr == ' ' || (*nptr >= 9 && *nptr <= 13)) && *nptr != '\0')
 		nptr++;
 	if (*nptr == '-')
 	{
