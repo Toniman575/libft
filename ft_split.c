@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asadik <asadik@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anton <anton@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 15:45:03 by asadik            #+#    #+#             */
-/*   Updated: 2026/03/09 16:20:16 by asadik           ###   ########.fr       */
+/*   Updated: 2026/03/09 22:11:31 by anton            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*make_word(const char **s, char c)
 	char	*word;
 
 	len = 0;
-	while ((*s)[len] != c && (*s)[len] != '\n' &&  (*s)[len] != '\0')
+	while ((*s)[len] != c && (*s)[len] != '\n' && (*s)[len] != '\0')
 		len++;
 	word = ft_substr(*s, 0, len);
 	*s = *s + len;
