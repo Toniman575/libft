@@ -1,13 +1,10 @@
 NAME =			libft.a
 
 PRINTF_DIR =	ft_printf
-PRINTF =		$(LIBFT_DIR)/libftprintf.a
+PRINTF =		$(PRINTF_DIR)/libftprintf.a
 
 GNL_DIR =		get_next_line
 GNL =			$(GNL_DIR)/gnl.a
-
-PRINTF_OBJS :=	$(shell $(MAKE) -C $(PRINTF_DIR) print_objs --no-print-directory)
-GNL_OBJS :=		$(shell $(MAKE) -C $(GNL_DIR) print_objs --no-print-directory)
 
 CC =			cc
 CFLAGS =		-Wall -Wextra -Werror -MMD -MP
@@ -22,16 +19,22 @@ SRCS =			ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_bzero.c ft_isascii.c \
 				ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
 				ft_lstmap.c
 OBJS =			$(SRCS:.c=.o)
-ALL_OBJS =		$(OBJS) $(PRINTF_OBJS) $(GNL_OBJS)
-DEPS =			$(ALL_OBJS:.o=.d)
+DEPS =			$(OBJS:.o=.d)
 
 all: $(NAME)
 
-$(NAME): $(ALL_OBJS)
-	ar rcs $(NAME) $(ALL_OBJS)
+$(NAME): $(OBJS) $(PRINTF) $(GNL)
+	ar rcT $(NAME) $(OBJS)
+	ar -rcT $(NAME) $(PRINTF) $(GNL)
 
-$(PRINTF_OBJS) $(GNL_OBJS):
-	$(MAKE) -C $(@D)
+$(PRINTF): FORCE1
+	$(MAKE) -C $(PRINTF_DIR)
+
+$(GNL): FORCE2
+	$(MAKE) -C $(GNL_DIR)
+
+FORCE1:
+FORCE2:
 
 clean:
 	rm -f $(OBJS) $(DEPS)
@@ -46,8 +49,8 @@ fclean: clean
 re: fclean all
 
 debug: fclean
-	$(MAKE) all CFLAGS="$(CFLAGS) -g" 
+	$(MAKE) all CFLAGS="$(CFLAGS) -g"
 
-.PHONY: all clean fclean re debug
+.PHONY: all clean fclean re debug FORCE sub-projects
 
 -include $(DEPS)
