@@ -6,7 +6,7 @@
 /*   By: asadik <asadik@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 15:45:03 by asadik            #+#    #+#             */
-/*   Updated: 2025/10/16 15:35:33 by asadik           ###   ########.fr       */
+/*   Updated: 2026/03/09 16:20:16 by asadik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	**initalize_words(char const *s, char c)
 	i = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] != c)
+		if (s[i] != c && s[i] != '\n')
 			is_word = 1;
 		else if (is_word)
 		{
@@ -44,7 +44,7 @@ static char	*make_word(const char **s, char c)
 	char	*word;
 
 	len = 0;
-	while ((*s)[len] != c && (*s)[len] != '\0')
+	while ((*s)[len] != c && (*s)[len] != '\n' &&  (*s)[len] != '\0')
 		len++;
 	word = ft_substr(*s, 0, len);
 	*s = *s + len;
@@ -82,7 +82,7 @@ char	**ft_split(char const *s, char c)
 	word_i = 0;
 	while (*s != '\0')
 	{
-		if (*s != c)
+		if (*s != c && *s != '\n')
 		{
 			words[word_i] = make_word(&s, c);
 			if (words[word_i] == NULL)
