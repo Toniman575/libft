@@ -24,8 +24,7 @@ DEPS =			$(OBJS:.o=.d)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(PRINTF) $(GNL)
-	ar rcT $(NAME) $(OBJS)
-	ar -rcT $(NAME) $(PRINTF) $(GNL)
+	ar -rcT $(NAME) $?
 
 $(PRINTF): FORCE1
 	$(MAKE) -C $(PRINTF_DIR)
